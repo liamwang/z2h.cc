@@ -11,8 +11,7 @@ defineProps<{ file: FileResult; tag: string }>()
       </div>
       <div v-else>
         <span v-if="file.code === 0">
-          <input id="input" :value="file.url" type="text" p="x2 y1" w="250px" bg="white-500" text="sm"
-            border="~ rounded gray-200 dark:gray-700" outline="none active:none">
+          <input id="input" class=" px-2 py-1 border rounded outline-none border-gray-200 dark:border-gray-700 text-sm">
           <button class="m-3 text-sm btn" @click="() => { }">
             复制
           </button>

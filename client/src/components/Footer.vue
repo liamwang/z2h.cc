@@ -8,8 +8,6 @@ import { isDark, toggleDark } from '~/composables'
       <div v-if="isDark" class="i-ri-moon-line" />
       <div v-else class="i-ri-sun-line" />
     </button>
-
-    <a class="icon-btn" i-ri-github-fill rel="noreferrer" href="https://github.com/antfu/vitesse-lite" target="_blank"
-      title="GitHub" />
+    <a class="icon-btn i-ri-github-fill" href="https://github.com/liamwang" target="_blank" title="GitHub" />
   </nav>
 </template>

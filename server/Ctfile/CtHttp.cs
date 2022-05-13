@@ -1,6 +1,7 @@
-﻿using ImageServer.Ctfile.Models;
-using Microsoft.Extensions.Caching.Memory;
+﻿using System.Security.Cryptography;
 using System.Text.Json;
+using ImageServer.Ctfile.Models;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace ImageServer.Ctfile;
 
@@ -42,7 +43,7 @@ public class CtHttp
         return _cache.GetOrCreateAsync($"upload_{folderId}", async (cache) =>
         {
             var result = await PostAsync<PreUploadParam, PreUploadResult>(
-                "file/upload", 
+                "file/upload",
                 new PreUploadParam { folder_id = folderId },
                 r => r.upload_url?.Length == 0);
 
@@ -77,16 +78,15 @@ public class CtHttp
     {
         var name = DateTimeOffset.UtcNow.ToUnixTimeSeconds() + fileName[fileName.IndexOf('.')..];
 
-        //var md5Bytes = MD5.Create().ComputeHash(fs);
-        //var md5Str = BitConverter.ToString(md5Bytes).Replace("-", string.Empty).ToLower();
-        //var pre = await PostAsync<PreUploadParam, PreUploadResult>("file/upload", new PreUploadParam
-        //{
-        //    folder_id = folderId,
-        //    //checksum = md5Str + "-" + fs.Length,
-        //    //size = fs.Length.ToString(),
-        //    //name = name,
-        //});
-        //var fs = File.OpenRead("D:\\222.jpg");
+        // var md5Bytes = MD5.Create().ComputeHash(stream);
+        // var md5Str = BitConverter.ToString(md5Bytes).Replace("-", string.Empty).ToLower();
+        // var pre = await PostAsync<PreUploadParam, PreUploadResult>("file/upload", new PreUploadParam
+        // {
+        //     folder_id = "d" + dirId,
+        //     checksum = md5Str,
+        //     //size = fs.Length.ToString(),
+        //     //name = name,
+        // });
 
         var uploadUrl = await GetUploadUrlAsync("d" + dirId);
 
@@ -101,7 +101,7 @@ public class CtHttp
 
         var resText = await res.Content.ReadAsStringAsync();
 
-        if (long.TryParse(resText,out long fileId))
+        if (long.TryParse(resText, out long fileId))
         {
             return await GetDirectUrlAsync(fileId);
         }

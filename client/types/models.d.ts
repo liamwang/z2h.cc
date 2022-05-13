@@ -5,3 +5,10 @@ interface FileResult {
   loading: boolean
   message: string
 }
+
+interface UploadResult {
+  loading: boolean
+  url: string | null
+  code: number
+  message: string
+}

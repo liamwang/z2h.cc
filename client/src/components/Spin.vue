@@ -3,14 +3,13 @@
 </script>
 
 <template>
-  <span class="spin i-ri-loader-4-line line-block">
-    Loding...
-  </span>
+  <span class="spin i-ri-loader-4-line" />
 </template>
 
 <style lang="less" scoped>
 .spin {
   display: inline-block;
+  vertical-align: middle;
   animation: spinning 1s infinite linear;
 }
 
