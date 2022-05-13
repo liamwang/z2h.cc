@@ -4,12 +4,12 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:7285/",
+      "applicationUrl": "http://localhost:5000/",
       "sslPort": 44302
     }
   },
   "profiles": {
-    "ImageServer": {
+    "Server": {
       "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

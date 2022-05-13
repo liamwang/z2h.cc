@@ -1,4 +1,4 @@
-﻿//namespace ImageServer.Ctfile;
+﻿//namespace Server.Ctfile;
 
 //public class CtOptions
 //{

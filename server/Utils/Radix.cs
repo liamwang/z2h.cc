@@ -1,4 +1,4 @@
-﻿namespace ImageServer.Utils;
+﻿namespace Server.Utils;
 
 public class Radix
 {

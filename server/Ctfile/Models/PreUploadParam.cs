@@ -1,4 +1,4 @@
-﻿namespace ImageServer.Ctfile.Models;
+﻿namespace Server.Ctfile.Models;
 
 public class PreUploadParam : CtParam
 {

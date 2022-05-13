@@ -1,6 +1,6 @@
-using ImageServer;
-using ImageServer.Ctfile;
-using ImageServer.Models;
+using Server;
+using Server.Ctfile;
+using Server.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,10 +11,10 @@ builder.Services.AddMemoryCache();
 
 var app = builder.Build();
 
+app.UseMiddleware<ErrorHandlerMiddleware>();
+
 app.MapPost("/upload", async (HttpRequest request, CtHttp ct) =>
 {
-
-
     var form = await request.ReadFormAsync();
 
     var appId = form["appId"];
@@ -22,24 +22,16 @@ app.MapPost("/upload", async (HttpRequest request, CtHttp ct) =>
 
     var clientApp = App.ClientApps
         .FirstOrDefault(x => x.Id == appId && x.Token == appToken);
-    if (clientApp is null)
-    {
-        return Results.BadRequest(ApiResult.Error("身份验证失败"));
-    }
+
+    Error.ThrowBadRequestIf(clientApp is null, "身份验证失败");
 
     var file = form.Files["file"];
-    if (file is null || file.Length == 0)
-    {
-        return Results.BadRequest(ApiResult.Error("文件未上传"));
-    }
+
+    Error.ThrowBadRequestIf(file is null || file.Length == 0, "文件未上传");
 
     await using var stream = file.OpenReadStream();
 
     var storageUrl = await ct.UploadAsync(stream, file.FileName, clientApp.DirectoryId);
-    if (storageUrl is null)
-    {
-        return Results.Problem("存储接口异常");
-    }
 
     var baseUrl = $"{request.Scheme}://{request.Host}";
     var publicUrl = UrlUtil.BuildProxyUrl(baseUrl, storageUrl);

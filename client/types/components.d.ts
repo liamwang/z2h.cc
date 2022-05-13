@@ -7,12 +7,9 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     DropZone: typeof import('./../src/components/DropZone.vue')['default']
     Footer: typeof import('./../src/components/Footer.vue')['default']
-    Preview: typeof import('./../src/components/Preview.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Spin: typeof import('./../src/components/Spin.vue')['default']
-    Tast: typeof import('./../src/components/Tast.vue')['default']
-    Toast: typeof import('./../src/components/Toast/Toast.vue')['default']
   }
 }
 

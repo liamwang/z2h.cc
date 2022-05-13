@@ -1,6 +1,6 @@
-﻿using ImageServer.Models;
+﻿using Server.Models;
 
-namespace ImageServer;
+namespace Server;
 
 public static class App
 {

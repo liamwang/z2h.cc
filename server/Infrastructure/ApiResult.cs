@@ -1,4 +1,4 @@
-﻿namespace ImageServer.Models;
+﻿namespace Server;
 
 public class ApiResult
 {
