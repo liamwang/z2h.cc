@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 using Server.Ctfile.Models;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -90,8 +90,7 @@ public class CtHttp
     /// </summary>
     public async Task<string> UploadAsync(Stream stream, string fileName, long dirId)
     {
-        var ext = fileName[fileName.IndexOf('.')..];
-        // 先以任一名称上传再重命名
+        var ext = UrlUtil.GetFileExt(fileName);
         var name = Guid.NewGuid().ToString() + ext;
 
         // var md5Bytes = MD5.Create().ComputeHash(stream);
@@ -109,7 +108,7 @@ public class CtHttp
         using var content = new MultipartFormDataContent
         {
             { new StringContent(name), "name" },
-             { new StringContent(stream.Length.ToString()), "filesize" },
+            { new StringContent(stream.Length.ToString()), "filesize" },
             { new StreamContent(stream), "file", name }
         };
 

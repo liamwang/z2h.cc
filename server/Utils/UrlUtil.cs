@@ -2,6 +2,9 @@ namespace Server.Ctfile;
 
 public static class UrlUtil
 {
+    public static string GetFileExt(string file)=> file[file.LastIndexOf('.')..];
+
+
     // 保留标识，约定以“*”作为分隔符
     // 将来可用作URL转换算法的版本号、存储机器号等
     public const string FLAG = "0*";
@@ -27,8 +30,7 @@ public static class UrlUtil
         var appId = pieces[3];
 
         // 第 5 段为文件名
-        var name = pieces[4];
-        var ext = name[name.IndexOf('.')..];
+        var ext = GetFileExt(pieces[4]);
 
         // 缩短后文件 Url
         return $"{baseUrl}/{appId}/{FLAG}{fileId}-{random}{ext}";
@@ -42,7 +44,7 @@ public static class UrlUtil
         slug = slug.Replace(FLAG, string.Empty);
         try
         {
-            var ext = slug[slug.IndexOf('.')..];
+            var ext = GetFileExt(slug);
             var str = slug.Replace(ext, string.Empty);
             var splits = str.Split('-');
 

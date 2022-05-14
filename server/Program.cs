@@ -1,7 +1,7 @@
+using System.Text.RegularExpressions;
 using Server;
 using Server.Ctfile;
 using Server.Models;
-using System.Text.RegularExpressions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,12 +12,14 @@ builder.Services.AddMemoryCache();
 
 var app = builder.Build();
 
+var isProd = app.Environment.IsProduction();
+
+// 由上层代理做跳转
+// app.UseHttpsRedirection();
+
 app.UseDefaultFiles();
 app.UseStaticFiles();
-
 app.UseMiddleware<ErrorHandlerMiddleware>();
-
-var isProd = app.Environment.IsProduction();
 
 app.MapPost("/upload", async (HttpRequest request, CtHttp ct) =>
 {
@@ -39,7 +41,8 @@ app.MapPost("/upload", async (HttpRequest request, CtHttp ct) =>
 
     var storageUrl = await ct.UploadAsync(stream, file.FileName, clientApp.DirectoryId);
 
-    var baseUrl = $"{request.Scheme}://{(isProd ? App.ImageServerHost : request.Host)}";
+    // 上层代理不转发 Scheme，生产环境强制使用 Https
+    var baseUrl = isProd ? $"https://{App.ImageServerHost}" : $"{request.Scheme}://{request.Host}";
     var publicUrl = UrlUtil.BuildPublicUrl(baseUrl, storageUrl);
 
     return Results.Ok(new UploadResult { Url = publicUrl });
@@ -62,7 +65,5 @@ app.MapGet(@$"{{appId}}/{{slug:regex(^{Regex.Escape(UrlUtil.FLAG)})}}",
     await response.Content.CopyToAsync(context.Response.Body);
 })
 .RequireHost(isProd ? App.ImageServerHost : null);
-
-
 
 app.Run();
