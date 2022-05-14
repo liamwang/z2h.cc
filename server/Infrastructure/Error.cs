@@ -1,9 +1,10 @@
-﻿namespace Server;
+namespace Server;
 
 public enum ErrorCode
 {
     Unhandled = 0,
     BadRequest = 400,
+    NotFound = 404,
     ServerError = 500
 }
 
@@ -20,7 +21,6 @@ public class Error : Exception
     {
         throw new Error(message, code);
     }
-
     public static void ThrowIf(bool predicate, string message, ErrorCode code)
     {
         if (predicate) Throw(message, code);
@@ -30,9 +30,17 @@ public class Error : Exception
     {
         throw new Error(message, ErrorCode.BadRequest);
     }
-
     public static void ThrowBadRequestIf(bool predicate, string message)
     {
         if (predicate) Throw(message, ErrorCode.BadRequest);
+    }
+
+    public static void ThrowNotFound()
+    {
+        throw new Error("Not Found", ErrorCode.NotFound);
+    }
+    public static void ThrowNotFoundIf(bool predicate)
+    {
+        if (predicate) Throw("Not Found", ErrorCode.NotFound);
     }
 }

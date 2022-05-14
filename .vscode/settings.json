@@ -7,6 +7,18 @@
     "*.css": "postcss",
     "*.json": "jsonc"
   },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/*.log": true,
+    "**/*.log*": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/.git": true,
+    "**/.gitignore": true,
+    "**/.DS_Store": true,
+    "**/.idea": true,
+    "**/*.lock": true
+  },
   "[csharp]": {
     "editor.tabSize": 4
   }

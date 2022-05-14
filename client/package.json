@@ -28,13 +28,5 @@
     "vite": "^2.9.9",
     "vite-plugin-pages": "^0.23.0",
     "vue-tsc": "^0.34.12"
-  },
-  "eslintConfig": {
-    "extends": "@antfu",
-    "rules": {
-      "vue/first-attribute-linebreak": "off",
-      "vue/html-closing-bracket-newline": "off",
-      "vue/html-indent": "off"
-    }
   }
 }
