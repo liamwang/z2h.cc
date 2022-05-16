@@ -20,7 +20,7 @@ export function useUploader() {
     formData.append('appToken', import.meta.env.VITE_APP_TOKEN)
 
     try {
-      const data = await fetch(import.meta.env.VITE_UPLOAD_URL, {
+      const data = await fetch('/upload', {
         method: 'POST',
         body: formData,
       }).then(res => res.json())
