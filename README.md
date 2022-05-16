@@ -1,5 +1,5 @@
 <p align='center'>
-  <img src='https://user-images.githubusercontent.com/5000396/168504143-a3e3179c-c2ae-45e2-b8ab-bdb8c113ddd5.png' alt='Vitesse - Opinionated Vite Starter Template' width='400' style="border-radius: 8px;"/>
+  <img src="https://user-images.githubusercontent.com/5000396/168505295-a0159efe-fd4c-4fa7-ab2c-12b6a0e2843c.png" alt="预览图" width="640"/>
 </p>
 
 <h3 align='center'>
